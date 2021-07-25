@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css">
+
+    <title>Portfolio MS</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-xl navbar-dark" style="background-color:rgb(18, 62, 105);">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-normal" href="#">Portfolio MS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about.html">My Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about.html">News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/templates/stockprice.html">Stock Price</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Top Trades
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Top Gainers</a></li>
+                            <li><a class="dropdown-item" href="#">Top Losers</a></li>
+                            <li><a class="dropdown-item" href="#">Top Turnover</a></li>
+                            <li><a class="dropdown-item" href="#">Top Share Traded</a></li>
+                            <li><a class="dropdown-item" href="#">Top Transactions</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Sector
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Commercial Banks</a></li>
+                            <li><a class="dropdown-item" href="#">Corporate Debuntures</a></li>
+                            <li><a class="dropdown-item" href="#">Development Banks</a></li>
+                            <li><a class="dropdown-item" href="#">Finance</a></li>
+                            <li><a class="dropdown-item" href="#">Hotels</a></li>
+                            <li><a class="dropdown-item" href="#">Hotels and Tourism</a></li>
+                            <li><a class="dropdown-item" href="#">Hydro Power</a></li>
+                            <li><a class="dropdown-item" href="#">Investment</a></li>
+                            <li><a class="dropdown-item" href="#">Life Insurance</a></li>
+                            <li><a class="dropdown-item" href="#">Manufacturing and Processing</a></li>
+                            <li><a class="dropdown-item" href="#">Microfinance</a></li>
+                            <li><a class="dropdown-item" href="#">Mutual Fund</a></li>
+                            <li><a class="dropdown-item" href="#">Non-life Insurance</a></li>
+                            <li><a class="dropdown-item" href="#">Others</a></li>
+                            <li><a class="dropdown-item" href="#">Preferrd Stock</a></li>
+                            <li><a class="dropdown-item" href="#">Promoter</a></li>
+                            <li><a class="dropdown-item" href="#">Tradings</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about.html">My Profile</a>
+                    </li>
+
+
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-info" type="submit">Search</button>
+
+                </form>
+                <div class="mx-2 my-2">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
+                        type="submit">Login</button>
+
+                    <!--Login Modal -->
+                    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST">
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Username</label>
+                                            <input type="text" class="form-control" name='username'
+                                                id="exampleInputPassword1">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                                            <input type="email" name='email' class="form-control"
+                                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                                            <div id="emailHelp" class="form-text">We'll never share your email with
+                                                anyone else.
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary"
+                                            href="/dashboard/index.html">Submit</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Signup Button -->
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#signupModal"
+                        type="submit">Sign Up</button>
+
+                    <!--Signup Modal -->
+                    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                                aria-describedby="emailHelp">
+                                            <div id="emailHelp" class="form-text">We'll never share your email with
+                                                anyone else.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword1">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Confirm
+                                                Password</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword1">
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Create account</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-4">
+        <div class="row row-cols-1 row-cols-lg-1 row-cols-sm-1 g-2 g-lg-4 justify-content-center">
+            <div class="col">
+                <hr />
+                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
+                    <a href="portfolio.html">My Portfolio</a></div>
+            </div>
+            <hr />
+            <div class="col">
+                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
+                    <a href="holding.html">Holdings</a></div>
+            </div>
+            <hr />
+            <div class="col">
+                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
+                    <a href="/templates/stockprice.html">Stock Price</a></div>
+            </div>
+            <hr />
+            <div class="col">
+                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
+                    <a href="companyprfl.html">Company Profile</a></div>
+            </div>
+            <hr />
+            <div class="col">
+                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
+                    <a href="watchlist.html">My Watchlist</a></div>
+            </div>
+            <hr />
+            <div class="col">
+                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
+                    <a href="news.html">News</a></div>
+            </div>
+            <hr />
+            <div class="col">
+                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
+                    <a href="fundamental.html">Fundamental Signals</a></div>
+            </div>
+            <hr />
+            <div class="col">
+                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
+                    <a href="technical.html">Technical Signals</a></div>
+            </div>
+            <hr />
+        </div>
+    </main>
+
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script> -->
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+    <!-- FOOTER -->
+    <footer class="container">
+        Quick Links
+        <hr />
+        <a href="index.html">Home</a><br>
+        <a href="portfolio.html">My Portfolio</a><br>
+        <a href="stockprice.html">Stock Price</a><br>
+        <a href="fundamental.html">Fundamental Signals</a><br>
+        <a href="technical.html">Technical Signals</a><br>
+        <a href="holdings.html">Holdings</a><br>
+        <a href="watchlist.html">My Watchlist</a>
+        <hr />
+
+        <p>&copy; 2021 NEPSE Portfolio, Inc.</p>
+        <p class="float-center"><a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p class="float-center"><a href="#">Back to top</a></p>
+    </footer>
+</body>
+
+</html>

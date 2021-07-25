@@ -1,0 +1,185 @@
+body {
+  background-color: rgb(28, 79, 131);
+}
+a.navbar-brand{
+  color: white;
+  font-size: 1.8rem;
+  text-align: center;
+}
+a{
+    color: rgb(227, 225, 248);
+    justify-content: center;
+    text-align: center;
+    text-decoration:solid;
+
+}
+
+footer{
+  margin-top: 2rem;
+  color:white;
+}
+footer a{
+  color:rgb(162, 163, 163)
+}
+footer a:hover{
+  color: aquamarine;
+}
+.col a{
+    color:rgb(251, 252, 253);
+    text-align: center;
+    font-size: large;
+}
+i.fas.fa.briefcase{
+    height: 4vh;
+    width: 5vw;
+    color: crimson;
+}
+.container .col a:hover{
+    font-size: 102%;
+    text-transform: uppercase;
+    color: rgb(0, 225, 255);
+    text-orientation:upright ;
+}
+header{
+    height: 6vh;
+}
+header a{
+    margin-left: 2vw;
+      
+    
+}
+.container .col a{
+    color:rgb(250, 252, 253);
+    font-size: large;
+}
+
+@media (min-width: 280px) {
+    .offset-xs-auto {
+      flex: 0 0 auto;
+      width: auto;
+    }
+  
+    .offset-xs-1 {
+      flex: 0 0 auto;
+      width: 8.33333333%;
+    }
+    .offset-xs-6 {
+        margin-left: 50%;
+      }
+    
+      .offset-xs-7 {
+        margin-left: 58.33333333%;
+      }
+    .offset-xs-8 {
+        margin-left: 66.66666667%;
+      }
+    .offset-xs-9 {
+        margin-left: 75%;
+      }
+    
+      .offset-xs-10 {
+        margin-left: 83.33333333%;
+      }
+    
+}
+
+thead {
+  background-color: rgb(6, 126, 247);
+  color: white;
+
+}
+
+tbody tr {
+  background-color: rgb(22, 96, 170) ;
+  color: white;
+}
+
+
+.accordion-body .container h2{
+    font-size: medium;
+    color: rgb(1, 39, 97);
+}
+
+h2#scrip {
+  font-size: medium;
+  color: rgb(253, 251, 251);
+}
+hr{
+  color: gold;
+}
+footer{
+  justify-content: center;
+  text-align: center;
+}
+main.container{
+  background-color: rgb(22, 96, 170);
+  width: 80%;
+  justify-content: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  border:0.1rem solid rgb(18, 86, 131);
+  border-radius: 1rem;
+  
+}
+main.container h2{
+  color: rgb(247, 6, 255);
+  font-size: large;
+  
+}
+main.container a{
+  color: rgb(2, 242, 250);
+  font-size: large;
+  
+}
+
+h2 {
+  color: rgb(255, 168, 6);
+  font-size: large;
+}
+
+h3 {
+  color: rgb(248, 248, 255);
+  font-size: medium;
+}
+
+h5 {
+  color: rgb(255, 255, 255);
+  font-size: medium;
+}
+hr{
+  color:rgb(243, 179, 4);
+}
+.accordion{
+  margin-top: 5%;
+ 
+
+}
+.accordion-item{
+  background-color: rgb(22, 96, 170);
+  width: 80%;
+  justify-content: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  border:0.1rem solid rgb(18, 86, 131);
+  border-radius: 1rem;
+}
+
+h1.accordion-header button.accordion-button{
+  background-color:  rgb(22, 96, 170);
+  
+}
+
+h5.modal-title{
+  color:black;
+}
+
+h2#scrip{
+  font-size: medium;
+  color:rgb(253, 251, 251);
+}
+span{
+  color: rgb(203, 223, 235);
+}
+.accordion-item h1.accordion-header button.accordion{
+  color:white;
+}
