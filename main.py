@@ -73,11 +73,13 @@ def add_transaction():
 def current_price(company = 'all'):
     cur = mysql.connection.cursor()
     if company == 'all':
-        query = '''SELECT * FROM company_price'''
+        query = '''SELECT symbol, LTP, PC, round(CH, 2), round(CH_percent, 2) FROM company_price
+        order by(symbol);
+'''
         cur.execute(query)
     else:
         company = [company]
-        query = '''SELECT * FROM company_price where company = %s'''
+        query = '''SELECT symbol, LTP, PC, round(CH, 2), round(CH_percent, 2) FROM company_price where company = %s'''
         cur.execute(query, company)
     rv = cur.fetchall()
     return render_template('stockprice.html', values = rv)
