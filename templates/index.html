@@ -28,13 +28,13 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/about.html">My Portfolio</a>
+                        <a class="nav-link" href="/portfolio.html">My Portfolio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about.html">News</a>
+                        <a class="nav-link" href="/news.html">News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/templates/stockprice.html">Stock Price</a>
+                        <a class="nav-link" aria-current="page" href="stockprice.html">Stock Price</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -75,17 +75,8 @@
                             <li><a class="dropdown-item" href="#">Tradings</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about.html">My Profile</a>
-                    </li>
 
-
-                </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-info" type="submit">Search</button>
-
-                </form>
+                {% if user == 'none' %}
                 <div class="mx-2 my-2">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
                         type="submit">Login</button>
@@ -174,6 +165,12 @@
                         </div>
                     </div>
                 </div>
+                {% else %}
+                <!--Logout Button -->
+                <form method="POST" action=''>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutModal" type="submit">Logout</button>
+                </form>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -245,11 +242,13 @@
     <footer class="container">
         Quick Links
         <hr />
-        <a href="index.html">Home</a><br>
+        <a href="/">Home</a><br>
         <a href="portfolio.html">My Portfolio</a><br>
         <a href="stockprice.html">Stock Price</a><br>
-        <a href="fundamental.html">Fundamental Signals</a><br>
+        <a href="companyprofile.html">Company Profile</a><br>
+        <a href="fundamental.html">Fundamental Report</a><br>
         <a href="technical.html">Technical Signals</a><br>
+        <a href="dividend.html">Dividend History</a><br>
         <a href="holdings.html">Holdings</a><br>
         <a href="watchlist.html">My Watchlist</a>
         <hr />
