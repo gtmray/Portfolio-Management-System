@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
 import yaml
+import hashlib
 
 app = Flask(__name__)
 mysql = MySQL(app)
@@ -20,14 +21,15 @@ def index():
     if request.method == 'POST':
         user_details = request.form
         username = user_details['username']
-        email = user_details['email']
+        password = user_details['password']
+        password_hashed = hashlib.sha224(password.encode()).hexdigest()
 
         cur = mysql.connection.cursor()
-        cur.execute('''select * from user_profile''')
+        cur.execute('''select username, user_password from user_profile''')
         mysql.connection.commit()
         all_users = cur.fetchall()
         for user in all_users:
-            if user[0] == username and user[1] == email:
+            if user[0] == username and user[1] == password_hashed:
                 current_user = username
                 return home()
         return "<h1>Username did not match!</h1>"
