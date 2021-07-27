@@ -160,10 +160,34 @@
             </tbody>
         </table>
     </div>
-
-    <br>
     <h1><a href="add_transaction.html">Want to add transaction?</a></h1>
-
+    <br>
+    <h2>Your watchlist:</h2>
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">LTP</th>
+                <th scope="col">PC</th>
+                <th scope="col">CH</th>
+                <th scope="col">CH %</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for items in watchlist %}
+            <tr>
+                <td> {{items[0]}} </td>
+                <td> {{items[1]}} </td>
+                <td> {{items[2]}} </td>
+                <td> {{items[3]}} </td>
+                <td> {{items[4]}} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+        <h1><a href="add_watchlist.html">Want to add watchlist?</a></h1>
+        <br>
     <h2>Some suggestions:
         <br>These are the best companies to invest in today!</h2>
     <table class="table table-sm">

@@ -5,83 +5,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>stockprice</title>
-</head>
+    <title>Watchlist</title>
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/style.css">
     <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css">
+</head>
+
 <body>
-
-    <nav class="navbar navbar-dark" style="background-color:rgb(18, 62, 105);">
+    <nav class="navbar style=" background-color:rgb(18, 62, 105);"">
         <div class="container-fluid">
-            <a class="navbar-brand fw-normal .fs-10 text" href="#">Watchlist</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about.html" data-bs-toggle="modal" data-bs-target="#addtrModal">Add
-                            New Stock to Watchlist</a>
-                    </li>
-                    <!--add transaction modal-->
-                    <div class="modal fade" id="addtrModal" tabindex="-1" aria-labelledby="addtrModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addtrModalLabel">Add New Stock</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="col-md-5">
-                                            <label for="country" class="form-label">Choose Stock</label>
-                                            <select class="form-select" id="info" required="true">
-                                                <option value="">Choose...</option>
-                                                <option>Stock1</option>
-                                                <option>Stock2</option>
-                                                <option>Stock3</option>
-                                                <option>Stock4</option>
-                                                <option>Stock5</option>
-                                                <option>Stock6</option>
-                                                <option>Stock7</option>
-                                                <option>Stock8</option>
-                                                <option>Stock9</option>
-                                                <option>Stock10</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Please select any Symbol.
-                                            </div>
-                                        </div>
-                                        <button type="submit" onclick="myFunction()" class="btn btn-primary my-2"
-                                            href="portfolio.html">Add</button>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div></ul>
-                    <form class="d-flex">
-                        <input class="form-control my-2 mx-2" type="search" placeholder="Search Symbol..." aria-label="Search">
-                        <button class="btn btn-outline-info" type="submit">Search</button>
-                    </form>
-                
-                
-            </div>
-            
+            <a class="navbar-brand">
+                <h2>Watchlist</h2>
+            </a>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search Symbol..." aria-label="Search">
+                <button class="btn btn-outline-info" type="submit">Search</button>
+            </form>
         </div>
-
     </nav>
 
 
-    <div class="table-responsive">
+    <div class="table-responsive justify-content-center float-center">
         <table class="table table-sm">
             <thead>
                 <tr>
@@ -89,135 +36,24 @@
                     <th scope="col">LTP</th>
                     <th scope="col">PC</th>
                     <th scope="col">CH</th>
-                    <th scope="col">CH%</th>
-
-
+                    <th scope="col">CH %</th>
                 </tr>
             </thead>
             <tbody>
+                {% for items in watchlist %}
                 <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
+                    <td> {{items[0]}} </td>
+                    <td> {{items[1]}} </td>
+                    <td> {{items[2]}} </td>
+                    <td> {{items[3]}} </td>
+                    <td> {{items[4]}} </td>
                 </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>977</td>
-                    <td>20</td>
-
-                </tr>
-
+                {% endfor %}
             </tbody>
         </table>
     </div>
     <script src="../bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function myFunction(){
-            var element = document.getElementsByClassName("col");
-            element.classList.add("table");
-        }
-    </script>
+
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
@@ -228,14 +64,17 @@
     <footer class="container">
         Quick Links
         <hr />
-        <a href="index.html">Home</a><br>
+        <a href="/">Home</a><br>
         <a href="portfolio.html">My Portfolio</a><br>
         <a href="stockprice.html">Stock Price</a><br>
-        <a href="fundamental.html">Fundamental Signals</a><br>
+        <a href="companyprofile.html">Company Profile</a><br>
+        <a href="fundamental.html">Fundamental Report</a><br>
         <a href="technical.html">Technical Signals</a><br>
-        <a href="holding.html">Holdings</a><br>
+        <a href="dividend.html">Dividend History</a><br>
+        <a href="holdings.html">Holdings</a><br>
         <a href="watchlist.html">My Watchlist</a>
         <hr />
+
         <p>&copy; 2021 NEPSE Portfolio, Inc.</p>
         <p class="float-center"><a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
         <p class="float-center"><a href="#">Back to top</a></p>

@@ -44,8 +44,12 @@ def index():
 
 @app.route('/portfolio.html')
 def portfolio():
+
+    # Check if we have logged in users
     if current_user == 'none':
         return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
+
+    # Query for holdings
     cur = mysql.connection.cursor()
     user = [current_user]
     query_holdings = '''select A.symbol, A.quantity, B.LTP, round(A.quantity*B.LTP, 2) as current_value from holdings_view A
@@ -53,9 +57,19 @@ inner join company_price B
 on A.symbol = B.symbol
 where username = %s
 '''
+    # Query for watchlist
     cur.execute(query_holdings, user)
     holdings = cur.fetchall()
 
+    query_watchlist = '''select symbol, LTP, PC, round(CH, 2), round(CH_percent, 2) from watchlist
+natural join company_price
+where username = %s
+order by(symbol);
+'''
+    cur.execute(query_watchlist, user)
+    watchlist = cur.fetchall()
+
+    # Query for stock suggestion
     query_suggestions = '''select symbol, EPS, ROE, book_value, rsi, adx, pe_ratio, macd from company_price
 natural join fundamental_averaged
 natural join technical_signals
@@ -71,27 +85,37 @@ order by symbol;
     cur.execute(query_suggestions)
     suggestions = cur.fetchall()
 
+    # Query on EPS
     query_eps = '''select symbol, ltp, eps from fundamental_averaged
 where eps > 30;'''
     cur.execute(query_eps)
     eps = cur.fetchall()
 
+    # Query on PE Ratio
     query_pe = '''select symbol, ltp, pe_ratio from fundamental_averaged
 where pe_ratio <30;'''
     cur.execute(query_pe)
     pe = cur.fetchall()
 
+    # Query on technical signals
     query_technical = '''select * from technical_signals
 where ADX > 23 and rsi>50 and rsi<70 and MACD = 'bull';'''
     cur.execute(query_technical)
     technical = cur.fetchall()
 
-    return render_template('portfolio.html', holdings=holdings, user=user[0], suggestions = suggestions, eps = eps, pe = pe, technical = technical)
+    return render_template('portfolio.html', holdings=holdings, user=user[0], suggestions = suggestions, eps = eps, pe = pe, technical = technical, watchlist=watchlist)
 
 
 
 @app.route('/add_transaction.html', methods=['GET', 'POST'])
 def add_transaction():
+
+    # Query for all companies (for drop down menu)
+    cur = mysql.connection.cursor()
+    query_companies = '''select symbol from company_profile'''
+    cur.execute(query_companies)
+    companies = cur.fetchall()
+
     if request.method == 'POST':
         transaction_details = request.form
         symbol = transaction_details['symbol']
@@ -109,8 +133,34 @@ def add_transaction():
         cur.execute(query, values)
         mysql.connection.commit()
 
-    return render_template('add_transaction.html')
+    return render_template('add_transaction.html', companies=companies)
 
+
+@app.route('/add_watchlist.html', methods=['GET', 'POST'])
+def add_watchlist():
+    
+    # Query for companies (for drop down menu) excluding those which are already in watchlist
+    cur = mysql.connection.cursor()
+    query_companies = '''SELECT symbol from company_profile
+where symbol not in
+(select symbol from watchlist
+where username = %s);
+'''
+    user = [current_user]
+    cur.execute(query_companies, user)
+    companies = cur.fetchall()
+
+    if request.method == 'POST':
+        watchlist_details = request.form
+        symbol = watchlist_details['symbol']
+        cur = mysql.connection.cursor()
+        query = '''insert into watchlist(username, symbol) values
+(%s, %s)'''
+        values = [current_user, symbol]
+        cur.execute(query, values)
+        mysql.connection.commit()
+
+    return render_template('add_watchlist.html', companies=companies)
 
 @app.route('/stockprice.html')
 def current_price(company='all'):
@@ -196,15 +246,16 @@ def watchlist():
     if current_user == 'none':
             return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
     cur = mysql.connection.cursor()
-    user = [current_user]
+    user = current_user
     query_watchlist = '''select symbol, LTP, PC, round(CH, 2), round(CH_percent, 2) from watchlist
 natural join company_price
-where username = 'rewan';
+where username = %s
+order by(symbol);
 '''
-    cur.execute(query_watchlist)
+    cur.execute(query_watchlist, [user])
     watchlist = cur.fetchall()
 
-    return render_template('watchlist.html', user=user[0], watchlist=watchlist)
+    return render_template('watchlist.html', user=user, watchlist=watchlist)
 
 
 if __name__ == '__main__':

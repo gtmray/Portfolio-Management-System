@@ -11,7 +11,12 @@
 </head>
 <body><h2>
         <form method="POST" action=''>
-            Symbol: <input type='text' name='symbol' />
+            Symbol:
+            <select name="symbol">
+                {% for company in companies %}
+                <option value="{{ company[0] }}">{{ company[0] }}</option>
+                {% endfor %}
+            </select>
             <br>
             Transaction Date: <input type="date" name='transaction_date' />
             <br>
@@ -28,6 +33,6 @@
             <input type="submit" value="Add">
         </form>
     </h2>
-        <h3><a href="portfolio.html">Go back to home page!</a></h3>
+        <h3><a href="portfolio.html">Go back!</a></h3>
 </body>
 </html>
