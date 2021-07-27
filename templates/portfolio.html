@@ -164,6 +164,106 @@
     <br>
     <h1><a href="add_transaction.html">Want to add transaction?</a></h1>
 
+    <h2>Some suggestions:
+        <br>These are the best companies to invest in today!</h2>
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">EPS</th>
+                <th scope="col">ROE</th>
+                <th scope="col">Book Value</th>
+                <th scope="col">RSI</th>
+                <th scope="col">ADX</th>
+                <th scope="col">P/E Ratio</th>
+                <th scope="col">MACD</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for company in suggestions %}
+        <tr>
+            <td> {{company[0]}} </td>
+            <td> {{company[1]}} </td>
+            <td> {{company[2]}} </td>
+            <td> {{company[3]}} </td>
+            <td> {{company[4]}} </td>
+            <td> {{company[5]}} </td>
+            <td> {{company[6]}} </td>
+            <td> {{company[7]}} </td>   
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        <h2>
+            <br>Companies having good earning per share:
+        </h2>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Symbol</th>
+                    <th scope="col">LTP</th>
+                    <th scope="col">EPS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for company in eps %}
+                <tr>
+                    <td> {{company[0]}} </td>
+                    <td> {{company[1]}} </td>
+                    <td> {{company[2]}} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    <h2>
+        <br>Companies which are considered cheap by price per earning ratio:
+    </h2>
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">LTP</th>
+                <th scope="col">P/E Ratio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for company in pe %}
+            <tr>
+                <td> {{company[0]}} </td>
+                <td> {{company[1]}} </td>
+                <td> {{company[2]}} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<h2>
+    <br>Companies which are technically strong right now:
+</h2>
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">LTP</th>
+            <th scope="col">RSI</th>
+            <th scope="col">Volume</th>
+            <th scope="col">ADX</th>
+            <th scope="col">MACD</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for company in technical %}
+        <tr>
+            <td> {{company[0]}} </td>
+            <td> {{company[1]}} </td>
+            <td> {{company[2]}} </td>
+            <td> {{company[3]}} </td>
+            <td> {{company[4]}} </td>
+            <td> {{company[5]}} </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
     <script src="../bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 
 

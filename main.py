@@ -48,15 +48,46 @@ def portfolio():
         return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
     cur = mysql.connection.cursor()
     user = [current_user]
-    query = '''select A.symbol, A.quantity, B.LTP, round(A.quantity*B.LTP, 2) as current_value from holdings_view A
+    query_holdings = '''select A.symbol, A.quantity, B.LTP, round(A.quantity*B.LTP, 2) as current_value from holdings_view A
 inner join company_price B
 on A.symbol = B.symbol
 where username = %s
 '''
-    cur.execute(query, user)
+    cur.execute(query_holdings, user)
     holdings = cur.fetchall()
 
-    return render_template('portfolio.html', holdings=holdings, user=user[0])
+    query_suggestions = '''select symbol, EPS, ROE, book_value, rsi, adx, pe_ratio, macd from company_price
+natural join fundamental_averaged
+natural join technical_signals
+natural join company_profile 
+where 
+EPS>25 and roe>13 and 
+book_value > 100 and
+50<rsi<70 and adx >23 and
+pe_ratio < 35 and
+macd = 'bull'
+order by symbol;
+'''
+    cur.execute(query_suggestions)
+    suggestions = cur.fetchall()
+
+    query_eps = '''select symbol, ltp, eps from fundamental_averaged
+where eps > 30;'''
+    cur.execute(query_eps)
+    eps = cur.fetchall()
+
+    query_pe = '''select symbol, ltp, pe_ratio from fundamental_averaged
+where pe_ratio <30;'''
+    cur.execute(query_pe)
+    pe = cur.fetchall()
+
+    query_technical = '''select * from technical_signals
+where ADX > 23 and rsi>50 and rsi<70 and MACD = 'bull';'''
+    cur.execute(query_technical)
+    technical = cur.fetchall()
+
+    return render_template('portfolio.html', holdings=holdings, user=user[0], suggestions = suggestions, eps = eps, pe = pe, technical = technical)
+
 
 
 @app.route('/add_transaction.html', methods=['GET', 'POST'])
@@ -158,6 +189,22 @@ order by(symbol);
         cur.execute(query, company)
     rv = cur.fetchall()
     return render_template('dividend.html', values=rv)
+
+
+@app.route('/watchlist.html')
+def watchlist():
+    if current_user == 'none':
+            return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
+    cur = mysql.connection.cursor()
+    user = [current_user]
+    query_watchlist = '''select symbol, LTP, PC, round(CH, 2), round(CH_percent, 2) from watchlist
+natural join company_price
+where username = 'rewan';
+'''
+    cur.execute(query_watchlist)
+    watchlist = cur.fetchall()
+
+    return render_template('watchlist.html', user=user[0], watchlist=watchlist)
 
 
 if __name__ == '__main__':
