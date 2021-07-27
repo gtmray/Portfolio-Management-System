@@ -13,7 +13,8 @@ app.config['MYSQL_HOST'] = db['mysql_host']
 app.config['MYSQL_DB'] = db['mysql_db']
 # Default is tuples
 # app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-global current_user
+
+global current_user # See who is logged in
 current_user = 'none'
 
 
@@ -23,10 +24,14 @@ def index():
     if request.method == 'POST':
         user_details = request.form
         try:
+            # If not logged in case
             username = user_details['username']
             password = user_details['password']
+
+            # Password hashing to 224 characters
             password_hashed = hashlib.sha224(password.encode()).hexdigest()
         except:
+            # If logged in case (for signout form return)
             current_user = 'none'
             return render_template('/index.html', user=current_user)
         cur = mysql.connection.cursor()
@@ -34,6 +39,7 @@ def index():
         mysql.connection.commit()
         all_users = cur.fetchall()
         for user in all_users:
+            # Check if the entered username and password is correct
             if user[0] == username and user[1] == password_hashed:
                 current_user = username
                 return portfolio()
@@ -257,6 +263,19 @@ order by(symbol);
 
     return render_template('watchlist.html', user=user, watchlist=watchlist)
 
+@app.route('/news.html')
+def news(company='all'):
+    cur = mysql.connection.cursor()
+    if company == 'all':
+        query = '''select date_of_news, title, related_company, related_sector, sources from news;
+'''
+        cur.execute(query)
+    else:
+        company = [company]
+        query = '''select date_of_news, title, related_company, related_sector, sources from news where related_company = %s'''
+        cur.execute(query, company)
+    rv = cur.fetchall()
+    return render_template('news.html', values=rv)
 
 if __name__ == '__main__':
     app.run(debug=True)
