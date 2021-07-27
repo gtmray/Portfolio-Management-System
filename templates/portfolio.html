@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css">
 
 </head>
-
 <body>
 
     <nav class="navbar navbar-dark" style="background-color:rgb(18, 62, 105);">
@@ -160,6 +159,9 @@
             </tbody>
         </table>
     </div>
+
+    <center><div id="myDivT" style="width:1000px;height:500px;"></div></center>
+
     <h1><a href="add_transaction.html">Want to add transaction?</a></h1>
     <br>
     <h2>Your watchlist:</h2>
@@ -289,8 +291,27 @@
 </table>
 
     <script src="../bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.3.0.min.js"></script>
+    <script>
+    var data = variablePass({{ piechart| tojson}})
+    
+    var layout = {
+        height: 500,
+        width: 700,
+        font: {
+            family: 'Courier New, monospace',
+            size: 18,
+            color: 'rgba(255, 255, 255, 255)'
+        },
+        paper_bgcolor: 'rgba(28,79,132,100)'
+    };
 
+    function variablePass(vars) {
+            return vars
+        }
+    Plotly.newPlot('myDivT', data, layout, { displayModeBar: false })
 
+    </script>
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

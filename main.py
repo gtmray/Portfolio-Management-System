@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
 import yaml
 import hashlib
+from json import dumps
 
 app = Flask(__name__)
 mysql = MySQL(app)
@@ -31,8 +32,9 @@ def index():
             # Password hashing to 224 characters
             password_hashed = hashlib.sha224(password.encode()).hexdigest()
         except:
-            # If logged in case (for signout form return)
-            current_user = 'none'
+            if request.form['logout'] == '':
+                # If logged in case (for signout form return)
+                current_user = 'none'
             return render_template('/index.html', user=current_user)
         cur = mysql.connection.cursor()
         cur.execute('''select username, user_password from user_profile''')
@@ -109,9 +111,37 @@ where ADX > 23 and rsi>50 and rsi<70 and MACD = 'bull';'''
     cur.execute(query_technical)
     technical = cur.fetchall()
 
-    return render_template('portfolio.html', holdings=holdings, user=user[0], suggestions = suggestions, eps = eps, pe = pe, technical = technical, watchlist=watchlist)
+    # Query for pie chart
+    query_sectors = '''select sector from holdings_view A
+left outer join company_profile B
+on A.symbol = B.symbol
+where username = %s;
+'''
+    cur.execute(query_sectors, user)
+    sectors = cur.fetchall()
+    sector_list = [sector[0] for sector in sectors]
+    # Convert list to json type having percentage and label keys
+    piechart_dict = list_to_json(sector_list)
+    piechart_dict[0]['type'] = 'pie'
+
+    return render_template('portfolio.html', holdings=holdings, user=user[0], suggestions = suggestions, eps = eps, pe = pe, technical = technical, watchlist=watchlist, piechart = piechart_dict)
 
 
+def list_to_json(listToConvert):
+    json_format = {}
+    temp_dict = {}
+    val_per = []
+    for value in listToConvert:
+        temp_dict[value] = listToConvert.count(value)
+        
+    values = [val for val in temp_dict.values()]
+    for i in range(len(values)):
+        per = ((values[i]/sum(values))*100)
+        val_per.append(round(per, 2))
+    keys = [k for k in temp_dict.keys()]
+    json_format['values'] = val_per
+    json_format['labels'] = keys
+    return [json_format]
 
 @app.route('/add_transaction.html', methods=['GET', 'POST'])
 def add_transaction():
