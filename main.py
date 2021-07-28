@@ -199,6 +199,8 @@ where username = %s);
 
     return render_template('add_watchlist.html', companies=companies)
 
+
+
 @app.route('/stockprice.html')
 def current_price(company='all'):
     cur = mysql.connection.cursor()
@@ -293,6 +295,23 @@ order by(symbol);
     watchlist = cur.fetchall()
 
     return render_template('watchlist.html', user=user, watchlist=watchlist)
+
+
+@app.route('/holdings.html')
+def holdings():
+    if current_user == 'none':
+        return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
+    cur = mysql.connection.cursor()
+    user = current_user
+    query_holdings = '''select A.symbol, A.quantity, B.LTP, round(A.quantity*B.LTP, 2) as current_value from holdings_view A
+inner join company_price B
+on A.symbol = B.symbol
+where username = %s
+'''
+    cur.execute(query_holdings, [user])
+    holdings = cur.fetchall()
+
+    return render_template('holdings.html', user=user, holdings=holdings)
 
 @app.route('/news.html')
 def news(company='all'):
