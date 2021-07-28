@@ -123,6 +123,7 @@ where username = %s;
     # Convert list to json type having percentage and label keys
     piechart_dict = list_to_json(sector_list)
     piechart_dict[0]['type'] = 'pie'
+    piechart_dict[0]['hole'] = 0.4
 
     return render_template('portfolio.html', holdings=holdings, user=user[0], suggestions = suggestions, eps = eps, pe = pe, technical = technical, watchlist=watchlist, piechart = piechart_dict)
 
