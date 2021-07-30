@@ -11,12 +11,22 @@
     <link rel="stylesheet" href="../static/style.css">
     <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css">
 </head>
+<style>
+    h3,form {
+        margin-top: 10%;
+        justify-content: center;
+        text-align: center;
+    }
+    a:hover{
+        color:cyan;
+    }
+</style>
 
 <body>
     <h2>
         <form method="POST" action=''>
             <br>
-            Select symbol: 
+            Select symbol:
             <select name="symbol">
                 {% for company in companies %}
                 <option value="{{ company[0] }}">{{ company[0] }}</option>
