@@ -9,7 +9,23 @@
     <link rel="stylesheet" href="../static/style.css">
     <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css">
 </head>
-<body><h2>
+<style>
+    h1{
+        color:rgb(255, 204, 0);
+    }
+    a:hover{
+        color:cyan;
+    }
+    select,input{
+        float:right;
+    }
+    form{
+        color:rgb(78, 211, 255);
+    }
+</style>
+<body>
+    <center><h1>Add transaction</h1></center>
+    <main class="container my-5" style="width: 50%; height:fit-content; float: center; justify-content: center; text-align: left; margin: 25%; padding: 2.5rem;"><h2>
         <form method="POST" action=''>
             Symbol:
             <select name="symbol">
@@ -17,22 +33,23 @@
                 <option value="{{ company[0] }}">{{ company[0] }}</option>
                 {% endfor %}
             </select>
-            <br>
-            Transaction Date: <input type="date" name='transaction_date' />
-            <br>
-            Transaction Type: 
+            <br><br>
+             Transaction Date: <input type="date" name='transaction_date' />
+            <br><br>
+             Transaction Type: 
             <select name="transaction_type">
                 <option value="Buy">Buy</option>
                 <option value="Sell">Sell</option>
             </select>
-            <br>
-            Quantity <input type='number' name='quantity' />
-            <br>
-            Rate <input type='number' name='rate' />
-            <br>
-            <input type="submit" value="Add">
+            <br><br>
+            Quantity: <input type='number' name='quantity' />
+            <br><br>
+             Rate: <input type='number' name='rate' />
+            <br><br>
+          <input type="submit" value="Add" href="portfolio.html" style="float:left">
         </form>
-    </h2>
-        <h3><a href="portfolio.html">Go back!</a></h3>
+    </main>
+         <center><h3><a href="portfolio.html">Go back!</a></h3></center>
+    
 </body>
 </html>
