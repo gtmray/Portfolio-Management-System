@@ -317,7 +317,8 @@ where username = %s
 def news(company='all'):
     cur = mysql.connection.cursor()
     if company == 'all':
-        query = '''select date_of_news, title, related_company, related_sector, sources from news;
+        query = '''select date_of_news, title, related_company, group_concat(sources) as sources from news
+group by(title);
 '''
         cur.execute(query)
     else:
