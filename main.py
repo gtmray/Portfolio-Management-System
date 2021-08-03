@@ -69,10 +69,10 @@ where username = %s
     cur.execute(query_holdings, user)
     holdings = cur.fetchall()
 
-    query_watchlist = '''select symbol, LTP, PC, round(CH, 2), round(CH_percent, 2) from watchlist
+    query_watchlist = '''select symbol, LTP, PC, round((LTP-PC), 2) AS CH, round(((LTP-PC)/PC)*100, 2) AS CH_percent from watchlist
 natural join company_price
 where username = %s
-order by(symbol);
+order by (symbol)
 '''
     cur.execute(query_watchlist, user)
     watchlist = cur.fetchall()
@@ -218,13 +218,15 @@ where username = %s);
 def current_price(company='all'):
     cur = mysql.connection.cursor()
     if company == 'all':
-        query = '''SELECT symbol, LTP, PC, round(CH, 2), round(CH_percent, 2) FROM company_price
-        order by(symbol);
+        query = '''SELECT symbol, LTP, PC, round((LTP-PC), 2) as CH, round(((LTP-PC)/PC)*100, 2) AS CH_percent FROM company_price
+order by symbol;
 '''
         cur.execute(query)
     else:
         company = [company]
-        query = '''SELECT symbol, LTP, PC, round(CH, 2), round(CH_percent, 2) FROM company_price where company = %s'''
+        query = '''SELECT symbol, LTP, PC, round((LTP-PC), 2) as CH, round(((LTP-PC)/PC)*100, 2) AS CH_percent FROM company_price
+        where symbol = %s;
+'''
         cur.execute(query, company)
     rv = cur.fetchall()
     return render_template('stockprice.html', values=rv)
@@ -234,11 +236,15 @@ def current_price(company='all'):
 def fundamental_report(company='all'):
     cur = mysql.connection.cursor()
     if company == 'all':
-        query = '''SELECT Symbol, LTP, round(avg(EPS), 2), round(avg(ROE), 2), round(avg(book_value), 2), round(avg(pe_ratio), 2) FROM fundamental_report group by(Symbol)'''
+        query = '''select * from  fundamental_averaged;'''
         cur.execute(query)
     else:
         company = [company]
-        query = '''SELECT * FROM fundamental_report where company = %s'''
+        query = '''select F.symbol, report_as_of, LTP, eps, roe, book_value, round(LTP/eps, 2) as pe_ratio
+from fundamental_report F
+inner join company_price C
+on F.symbol = C.symbol
+where F.symbol = %s'''
         cur.execute(query, company)
     rv = cur.fetchall()
     return render_template('fundamental.html', values=rv)
@@ -299,10 +305,10 @@ def watchlist():
             return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
     cur = mysql.connection.cursor()
     user = current_user
-    query_watchlist = '''select symbol, LTP, PC, round(CH, 2), round(CH_percent, 2) from watchlist
+    query_watchlist = '''select symbol, LTP, PC, round((LTP-PC), 2) AS CH, round(((LTP-PC)/PC)*100, 2) AS CH_percent from watchlist
 natural join company_price
 where username = %s
-order by(symbol);
+order by (symbol);
 '''
     cur.execute(query_watchlist, [user])
     watchlist = cur.fetchall()
