@@ -112,22 +112,35 @@ where ADX > 23 and rsi>50 and rsi<70 and MACD = 'bull';'''
     technical = cur.fetchall()
 
     # Query for pie chart
-    query_sectors = '''select sector from holdings_view A
-left outer join company_profile B
+    query_sectors = '''select C.sector, sum(A.quantity*B.LTP) as current_value 
+from holdings_view A
+inner join company_price B
 on A.symbol = B.symbol
-where username = %s;
+inner join company_profile C
+on A.symbol = C.symbol
+where username = %s
+group by C.sector;
 '''
     cur.execute(query_sectors, user)
-    sectors = cur.fetchall()
-    sector_list = [sector[0] for sector in sectors]
+    sectors_total = cur.fetchall()
     # Convert list to json type having percentage and label keys
-    piechart_dict = list_to_json(sector_list)
+    piechart_dict = toPercentage(sectors_total)
     piechart_dict[0]['type'] = 'pie'
     piechart_dict[0]['hole'] = 0.4
 
     return render_template('portfolio.html', holdings=holdings, user=user[0], suggestions = suggestions, eps = eps, pe = pe, technical = technical, watchlist=watchlist, piechart = piechart_dict)
 
+def toPercentage(sectors_total):
+    json_format = {}
+    total = 0
 
+    for row in sectors_total:
+        total += row[1]
+
+    json_format['values'] = [round((row[1]/total)*100, 2) for row in sectors_total]
+    json_format['labels'] = [row[0] for row in sectors_total]
+    return [json_format]
+    
 def list_to_json(listToConvert):
     json_format = {}
     temp_dict = {}
@@ -317,7 +330,10 @@ where username = %s
 def news(company='all'):
     cur = mysql.connection.cursor()
     if company == 'all':
-        query = '''select date_of_news, title, related_company, group_concat(sources) as sources from news
+        query = '''select date_of_news, title, related_company, C.sector, group_concat(sources) as sources 
+from news N
+inner join company_profile C
+on N.related_company = C.symbol
 group by(title);
 '''
         cur.execute(query)
