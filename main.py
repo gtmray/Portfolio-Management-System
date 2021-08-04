@@ -60,10 +60,13 @@ def portfolio():
     # Query for holdings
     cur = mysql.connection.cursor()
     user = [current_user]
-    query_holdings = '''select A.symbol, A.quantity, B.LTP, round(A.quantity*B.LTP, 2) as current_value from holdings_view A
-inner join company_price B
-on A.symbol = B.symbol
+    query_holdings = '''select symbol, sum(quantity) as quantity, LTP
+,round((getTotal(-sum(quantity)*LTP)), 2) as current_value,
+capGain(round((getTotal(-sum(quantity)*LTP)) - (getTotal(sum(quantity)*rate)), 2), transaction_date) as profit_loss
+from transaction_history T
+natural join company_price C
 where username = %s
+group by symbol;
 '''
     # Query for watchlist
     cur.execute(query_holdings, user)
