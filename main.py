@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
-import yaml
+
 import hashlib
 from json import dumps
 
@@ -45,7 +45,7 @@ def index():
             if user[0] == username and user[1] == password_hashed:
                 current_user = username
                 return portfolio()
-        return render_template('alert2.html')
+        return render_template('alert2.html', user=current_user)
     else:
         return render_template('index.html', user=current_user)
 
