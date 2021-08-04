@@ -60,10 +60,13 @@ def portfolio():
     # Query for holdings
     cur = mysql.connection.cursor()
     user = [current_user]
-    query_holdings = '''select A.symbol, A.quantity, B.LTP, round(A.quantity*B.LTP, 2) as current_value from holdings_view A
-inner join company_price B
-on A.symbol = B.symbol
+    query_holdings = '''select symbol, sum(quantity) as quantity, LTP
+,round((getTotal(-sum(quantity)*LTP)), 2) as current_value,
+capGain(round((getTotal(-sum(quantity)*LTP)) - (getTotal(sum(quantity)*rate)), 2), transaction_date) as profit_loss
+from transaction_history T
+natural join company_price C
 where username = %s
+group by symbol;
 '''
     # Query for watchlist
     cur.execute(query_holdings, user)
@@ -143,7 +146,17 @@ def toPercentage(sectors_total):
     json_format['labels'] = [row[0] for row in sectors_total]
     return [json_format]
 
+def toPercentage(sectors_total):
+    json_format = {}
+    total = 0
 
+    for row in sectors_total:
+        total += row[1]
+
+    json_format['values'] = [round((row[1]/total)*100, 2) for row in sectors_total]
+    json_format['labels'] = [row[0] for row in sectors_total]
+    return [json_format]
+    
 def list_to_json(listToConvert):
     json_format = {}
     temp_dict = {}
@@ -215,7 +228,6 @@ where username = %s);
         mysql.connection.commit()
 
     return render_template('add_watchlist.html', companies=companies)
-
 
 @app.route('/stockprice.html')
 def current_price(company='all'):
@@ -334,7 +346,6 @@ where username = %s
     holdings = cur.fetchall()
 
     return render_template('holdings.html', user=user, holdings=holdings)
-
 
 @app.route('/news.html')
 def news(company='all'):
