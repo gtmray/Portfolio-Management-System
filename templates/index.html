@@ -19,66 +19,14 @@
     <nav class="navbar navbar-expand-xl navbar-dark" style="background-color:rgb(18, 62, 105);">
         <div class="container-fluid">
             <a class="navbar-brand fw-normal" href="#">Portfolio MS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/portfolio.html">My Portfolio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/news.html">News</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="stockprice.html">Stock Price</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Top Trades
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Top Gainers</a></li>
-                            <li><a class="dropdown-item" href="#">Top Losers</a></li>
-                            <li><a class="dropdown-item" href="#">Top Turnover</a></li>
-                            <li><a class="dropdown-item" href="#">Top Share Traded</a></li>
-                            <li><a class="dropdown-item" href="#">Top Transactions</a></li>
-
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Sector
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Commercial Banks</a></li>
-                            <li><a class="dropdown-item" href="#">Corporate Debuntures</a></li>
-                            <li><a class="dropdown-item" href="#">Development Banks</a></li>
-                            <li><a class="dropdown-item" href="#">Finance</a></li>
-                            <li><a class="dropdown-item" href="#">Hotels</a></li>
-                            <li><a class="dropdown-item" href="#">Hotels and Tourism</a></li>
-                            <li><a class="dropdown-item" href="#">Hydro Power</a></li>
-                            <li><a class="dropdown-item" href="#">Investment</a></li>
-                            <li><a class="dropdown-item" href="#">Life Insurance</a></li>
-                            <li><a class="dropdown-item" href="#">Manufacturing and Processing</a></li>
-                            <li><a class="dropdown-item" href="#">Microfinance</a></li>
-                            <li><a class="dropdown-item" href="#">Mutual Fund</a></li>
-                            <li><a class="dropdown-item" href="#">Non-life Insurance</a></li>
-                            <li><a class="dropdown-item" href="#">Others</a></li>
-                            <li><a class="dropdown-item" href="#">Preferrd Stock</a></li>
-                            <li><a class="dropdown-item" href="#">Promoter</a></li>
-                            <li><a class="dropdown-item" href="#">Tradings</a></li>
-                        </ul>
-                    </li>
+                    
 
                 {% if user == 'none' %}
                 <div class="mx-2 my-2">
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
+                   <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
                         type="submit">Login</button>
 
                     <!--Login Modal -->
@@ -118,8 +66,8 @@
                         </div>
                     </div>
                     <!--Signup Button -->
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#signupModal"
-                        type="submit">Sign Up</button>
+                   <button class="btn btn-danger mx-4" data-bs-toggle="modal" data-bs-target="#signupModal"
+                        type="submit">Register</button>
 
                     <!--Signup Modal -->
                     <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel"
@@ -176,48 +124,51 @@
     </nav>
 
     <main class="container my-4">
+        <div class="container">
         <div class="row row-cols-1 row-cols-lg-1 row-cols-sm-1 g-2 g-lg-4 justify-content-center">
             <div class="col">
                 <hr />
                 <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
                     <a href="portfolio.html">My Portfolio</a></div>
             </div>
-            <hr />
+            <hr /></div>
+            <div class="container">
             <div class="col">
                 <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
                     <a href="holdings.html">Holdings</a></div>
             </div>
-            <hr />
+            <hr /></div>
+            <div class="container">
             <div class="col">
                 <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
                     <a href="stockprice.html">Stock Price</a></div>
             </div>
-            <hr />
+            <hr /></div><div class="container">
             <div class="col">
                 <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
                     <a href="companyprofile.html">Company Profile</a></div>
             </div>
-            <hr />
+            <hr /></div><div class="container">
             <div class="col">
                 <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
                     <a href="watchlist.html">My Watchlist</a></div>
             </div>
-            <hr />
+            <hr /></div><div class="container">
             <div class="col">
                 <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
                     <a href="news.html">News</a></div>
             </div>
-            <hr />
+            <hr /></div><div class="container">
             <div class="col">
                 <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
                     <a href="fundamental.html">Fundamental Signals</a></div>
             </div>
-            <hr />
+            <hr /></div><div class="container">
             <div class="col">
                 <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
                     <a href="technical.html">Technical Signals</a></div>
             </div>
-            <hr />
+            <hr /></div>
         </div>
     </main>
 

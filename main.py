@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
-import yaml
+
 import hashlib
 from json import dumps
 
@@ -45,7 +45,7 @@ def index():
             if user[0] == username and user[1] == password_hashed:
                 current_user = username
                 return portfolio()
-        return "<h1>Username did not match!</h1>"
+        return render_template('alert2.html', user=current_user)
     else:
         return render_template('index.html', user=current_user)
 
@@ -55,7 +55,7 @@ def portfolio():
 
     # Check if we have logged in users
     if current_user == 'none':
-        return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
+        return render_template('alert1.html')
 
     # Query for holdings
     cur = mysql.connection.cursor()
@@ -131,7 +131,20 @@ group by C.sector;
     piechart_dict[0]['type'] = 'pie'
     piechart_dict[0]['hole'] = 0.4
 
-    return render_template('portfolio.html', holdings=holdings, user=user[0], suggestions = suggestions, eps = eps, pe = pe, technical = technical, watchlist=watchlist, piechart = piechart_dict)
+    return render_template('portfolio.html', holdings=holdings, user=user[0], suggestions=suggestions, eps=eps, pe=pe, technical=technical, watchlist=watchlist, piechart=piechart_dict)
+
+
+def toPercentage(sectors_total):
+    json_format = {}
+    total = 0
+
+    for row in sectors_total:
+        total += row[1]
+
+    json_format['values'] = [round((row[1]/total)*100, 2)
+                             for row in sectors_total]
+    json_format['labels'] = [row[0] for row in sectors_total]
+    return [json_format]
 
 def toPercentage(sectors_total):
     json_format = {}
@@ -150,7 +163,7 @@ def list_to_json(listToConvert):
     val_per = []
     for value in listToConvert:
         temp_dict[value] = listToConvert.count(value)
-        
+
     values = [val for val in temp_dict.values()]
     for i in range(len(values)):
         per = ((values[i]/sum(values))*100)
@@ -159,6 +172,7 @@ def list_to_json(listToConvert):
     json_format['values'] = val_per
     json_format['labels'] = keys
     return [json_format]
+
 
 @app.route('/add_transaction.html', methods=['GET', 'POST'])
 def add_transaction():
@@ -191,7 +205,7 @@ def add_transaction():
 
 @app.route('/add_watchlist.html', methods=['GET', 'POST'])
 def add_watchlist():
-    
+
     # Query for companies (for drop down menu) excluding those which are already in watchlist
     cur = mysql.connection.cursor()
     query_companies = '''SELECT symbol from company_profile
@@ -214,8 +228,6 @@ where username = %s);
         mysql.connection.commit()
 
     return render_template('add_watchlist.html', companies=companies)
-
-
 
 @app.route('/stockprice.html')
 def current_price(company='all'):
@@ -305,7 +317,7 @@ order by(symbol);
 @app.route('/watchlist.html')
 def watchlist():
     if current_user == 'none':
-            return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
+        return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
     cur = mysql.connection.cursor()
     user = current_user
     query_watchlist = '''select symbol, LTP, PC, round((LTP-PC), 2) AS CH, round(((LTP-PC)/PC)*100, 2) AS CH_percent from watchlist
@@ -352,6 +364,7 @@ group by(title);
         cur.execute(query, company)
     rv = cur.fetchall()
     return render_template('news.html', values=rv)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
