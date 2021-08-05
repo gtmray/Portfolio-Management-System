@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
 
 import hashlib
+import yaml
 from json import dumps
 
 app = Flask(__name__)
