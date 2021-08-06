@@ -19,124 +19,17 @@
     <nav class="navbar navbar-dark" style="background-color:rgb(18, 62, 105);">
         <div class="container-fluid">
             <a class="navbar-brand fw-normal" href="#">Holdings</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about.html" data-bs-toggle="modal" data-bs-target="#addtrModal">Add
-                            New Transaction</a>
-                    </li>
-                    <!--add transaction modal-->
-                    <div class="modal fade" id="addtrModal" tabindex="-1" aria-labelledby="addtrModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addtrModalLabel">Add New Transaction</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="col-md-5">
-                                            <label for="country" class="form-label">Information</label>
-                                            <select class="form-select" id="info" required="true">
-                                                <option value="">Buy or Sell</option>
-                                                <option>Buy</option>
-                                                <option>Sell</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Please select an option.
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 my-2">
-                                            <label for="inputText" class="form-label">Symbol</label>
-                                            <input type="text" class="form-control" id="inputSymbol"
-                                                aria-describedby="textHelp">
-
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="inputUnit" class="form-label">Unit</label>
-                                            <input type="number" class="form-control" id="inputUnit">
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary" href="portfolio.html">Add</button>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="modal" href="#" data-bs-target="#addModal">Create New
-                            Portfolio</a>
-                    </li>
-                    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addModalLabel">Create Portfolio</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="mb-3">
-                                            <label for="portfolionameInput" class="form-label"
-                                                aria-required="true">Portfolio name</label>
-                                            <input type="text" class="form-control" id="portfolionameInput">
-
-                                            <div class="col-md-5">
-                                                <label for="country" class="form-label">Portfolio Type</label>
-                                                <select class="form-select" id="country" required="true">
-                                                    <option value="">Choose Portfolio Type</option>
-                                                    <option>Individual</option>
-                                                    <option>Institutional</option>
-                                                </select>
-                                                <div class="invalid-feedback">
-                                                    Please select an option.
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary"
-                                            href="/dashboard/index.html">Add</button>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/stockprice.html">Fundamental Report</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about.html">Technical Report</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about.html">News</a>
-                    </li>
-                </ul>
-
-
-            </div>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search Symbol..."
+                    aria-label="Search">
+               
+            </form>
         </div>
-    </nav>
+    </nav><center>
 <h2>Welcome {{user}}!
 <br>
 Your current holdings are:
-</h2>
+</h2></center>
     <div class="table-responsive justify-content-center float-center">
         <table class="table table-sm">
             <thead>
@@ -160,17 +53,27 @@ Your current holdings are:
         </table>
     </div>
 
-<br>
-<h1><a href="add_transaction.html">Want to add transaction?</a></h1>
 
-    <script src="../bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
+    <!--js-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $(".form-control").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $(".table tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
         <!-- FOOTER -->
         <footer class="container">
             Quick Links

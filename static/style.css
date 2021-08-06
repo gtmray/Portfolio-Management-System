@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 body {
   background-color: rgb(28, 79, 131);
 }
-a.navbar-brand{
-  color: white;
+nav.navbar>div.container-fluid>a.navbar-brand{
+  color: rgb(255, 0, 179);
   font-size: 1.8rem;
   text-align: center;
+  font-family: 'Montserrat', sans-serif;
 }
 a{
     color: rgb(227, 225, 248);
@@ -51,6 +53,7 @@ header a{
 .container .col a{
     color:rgb(250, 252, 253);
     font-size: large;
+    font-family: 'Montserrat', sans-serif
 }
 
 @media (min-width: 280px) {
