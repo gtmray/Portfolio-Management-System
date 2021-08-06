@@ -8,47 +8,49 @@
     <title>Stock Price</title>
 </head>
 <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/style.css">
-    <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="../static/style.css">
+<link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css">
+
 <body>
     <nav class="navbar" style="background-color:rgb(18, 62, 105);">
         <div class="container-fluid">
-            <a class="navbar-brand"><h2>Stock Price</h2></a>
+            <a class="navbar-brand ">
+                Stock Price
+            </a>
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search Symbol..." aria-label="Search">
-                <button class="btn btn-outline-info" type="submit">Search</button>
+                <input class="form-control me-2" type="search" placeholder="Search Symbol..."
+                    aria-label="Search">               
             </form>
         </div>
     </nav>
     <div class="table-responsive">
-<table class="table table-sm">
-    <thead>
-        <tr>
-            <th scope="col">Symbol</th>
-            <th scope="col">LTP</th>
-            <th scope="col">PC</th>
-            <th scope="col">CH</th>
-            <th scope="col">CH %</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for items in values %}
-        <tr>
-            <td> {{items[0]}} </td>
-            <td> {{items[1]}} </td>
-            <td> {{items[2]}} </td>
-            <td> {{items[3]}} </td>
-            <td> {{items[4]}} </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Symbol</th>
+                    <th scope="col">LTP</th>
+                    <th scope="col">PC</th>
+                    <th scope="col">CH</th>
+                    <th scope="col">CH %</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for items in values %}
+                <tr>
+                    <td> {{items[0]}} </td>
+                    <td> {{items[1]}} </td>
+                    <td> {{items[2]}} </td>
+                    <td> {{items[3]}} </td>
+                    <td> {{items[4]}} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <script src="../bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 
-
+    
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -56,18 +58,40 @@
     -->
     <!-- FOOTER -->
     <footer class="container">
-        Quick Links<hr/>
+        Quick Links
+        <hr />
         <a href="index.html">Home</a><br>
         <a href="portfolio.html">My Portfolio</a><br>
         <a href="stockprice.html">Stock Price</a><br>
         <a href="fundamental.html">Fundamental Signals</a><br>
         <a href="technical.html">Technical Signals</a><br>
         <a href="holding.html">Holdings</a><br>
-        <a href="watchlist.html">My Watchlist</a><hr/>
-        <p>&copy; 2021 NEPSE Portfolio, Inc.</p>        
+        <a href="watchlist.html">My Watchlist</a>
+        <hr />
+        <p>&copy; 2021 NEPSE Portfolio, Inc.</p>
         <p class="float-center"><a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
         <p class="float-center"><a href="#">Back to top</a></p>
     </footer>
+<!--js-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+crossorigin="anonymous"></script>
+<script>
+$(document).ready(function () {
+    $(".form-control").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $(".table tbody tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+});
+</script>
 </body>
 
 </html>
