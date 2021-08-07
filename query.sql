@@ -534,3 +534,21 @@ select * from transaction_history
 natural join company_price
 where username='rewan'
 group by symbol;
+
+
+
+DELIMITER $$
+CREATE PROCEDURE portfolio(in username varchar(30))
+BEGIN
+select symbol, sum(quantity) as quantity, LTP
+,round((getTotal(-sum(quantity)*LTP)), 2) as current_value,
+capGain(round((getTotal(-sum(quantity)*LTP)) - (getTotal(sum(quantity)*rate)), 2), transaction_date) as profit_loss
+from transaction_history T
+natural join company_price C
+where username = username
+group by symbol;
+END$$
+DELIMITER ;
+
+drop procedure portfolio;
+call portfolio('rewan')

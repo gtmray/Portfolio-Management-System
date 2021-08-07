@@ -4,6 +4,7 @@ from flask_mysqldb import MySQL
 import hashlib
 import yaml
 from json import dumps
+import time
 
 app = Flask(__name__)
 mysql = MySQL(app)
@@ -61,18 +62,10 @@ def portfolio():
     # Query for holdings
     cur = mysql.connection.cursor()
     user = [current_user]
-    query_holdings = '''select symbol, sum(quantity) as quantity, LTP
-,round((getTotal(-sum(quantity)*LTP)), 2) as current_value,
-capGain(round((getTotal(-sum(quantity)*LTP)) - (getTotal(sum(quantity)*rate)), 2), transaction_date) as profit_loss
-from transaction_history T
-natural join company_price C
-where username = %s
-group by symbol;
-'''
-    # Query for watchlist
-    cur.execute(query_holdings, user)
+    cur.callproc('portfolio', user)
     holdings = cur.fetchall()
 
+    # Query for watchlist
     query_watchlist = '''select symbol, LTP, PC, round((LTP-PC), 2) AS CH, round(((LTP-PC)/PC)*100, 2) AS CH_percent from watchlist
 natural join company_price
 where username = %s
