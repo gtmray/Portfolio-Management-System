@@ -139,17 +139,6 @@ def toPercentage(sectors_total):
                              for row in sectors_total]
     json_format['labels'] = [row[0] for row in sectors_total]
     return [json_format]
-
-def toPercentage(sectors_total):
-    json_format = {}
-    total = 0
-
-    for row in sectors_total:
-        total += row[1]
-
-    json_format['values'] = [round((row[1]/total)*100, 2) for row in sectors_total]
-    json_format['labels'] = [row[0] for row in sectors_total]
-    return [json_format]
     
 def list_to_json(listToConvert):
     json_format = {}
