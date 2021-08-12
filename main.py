@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from flask_mysqldb import MySQL
-
+from datetime import timedelta
 import hashlib
 import yaml
 from json import dumps
@@ -9,6 +9,8 @@ import time
 app = Flask(__name__)
 mysql = MySQL(app)
 db = yaml.load(open('db.yaml'))
+app.secret_key = db['secret_key']
+app.permanent_session_lifetime = timedelta(minutes=10) # Session lasts for 10 minutes
 
 app.config['MYSQL_USER'] = db['mysql_user']
 app.config['MYSQL_PASSWORD'] = db['mysql_password']
@@ -17,14 +19,10 @@ app.config['MYSQL_DB'] = db['mysql_db']
 # Default is tuples
 # app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-global current_user # See who is logged in
-current_user = 'none'
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global current_user
     if request.method == 'POST':
+        session.permanent = True
         user_details = request.form
         try:
             # If not logged in case
@@ -36,8 +34,8 @@ def index():
         except:
             if request.form['logout'] == '':
                 # If logged in case (for signout form return)
-                current_user = 'none'
-            return render_template('/index.html', user=current_user)
+                session.pop('user')
+            return render_template('/index.html', session=session)
         cur = mysql.connection.cursor()
         cur.execute('''select username, user_password from user_profile''')
         mysql.connection.commit()
@@ -45,23 +43,23 @@ def index():
         for user in all_users:
             # Check if the entered username and password is correct
             if user[0] == username and user[1] == password_hashed:
-                current_user = username
+                session['user'] = username
                 return portfolio()
-        return render_template('alert2.html', user=current_user)
+        return render_template('alert2.html', user=session['user'])
     else:
-        return render_template('index.html', user=current_user)
+        return render_template('index.html', session=session)
 
 
 @app.route('/portfolio.html')
 def portfolio():
 
     # Check if we have logged in users
-    if current_user == 'none':
+    if "user" not in session:
         return render_template('alert1.html')
 
     # Query for holdings
     cur = mysql.connection.cursor()
-    user = [current_user]
+    user = [session['user']]
     cur.callproc('portfolio', user)
     holdings = cur.fetchall()
 
@@ -92,7 +90,8 @@ order by symbol;
 
     # Query on EPS
     query_eps = '''select symbol, ltp, eps from fundamental_averaged
-where eps > 30;'''
+where eps > 30
+order by eps;'''
     cur.execute(query_eps)
     eps = cur.fetchall()
 
@@ -179,7 +178,7 @@ def add_transaction():
         cur = mysql.connection.cursor()
         query = '''insert into transaction_history(username, symbol, transaction_date, quantity, rate) values
 (%s, %s, %s, %s, %s)'''
-        values = [current_user, symbol, date, quantity, rate]
+        values = [session['user'], symbol, date, quantity, rate]
         cur.execute(query, values)
         mysql.connection.commit()
 
@@ -196,7 +195,7 @@ where symbol not in
 (select symbol from watchlist
 where username = %s);
 '''
-    user = [current_user]
+    user = [session['user']]
     cur.execute(query_companies, user)
     companies = cur.fetchall()
 
@@ -206,7 +205,7 @@ where username = %s);
         cur = mysql.connection.cursor()
         query = '''insert into watchlist(username, symbol) values
 (%s, %s)'''
-        values = [current_user, symbol]
+        values = [session['user'], symbol]
         cur.execute(query, values)
         mysql.connection.commit()
 
@@ -299,36 +298,34 @@ order by(symbol);
 
 @app.route('/watchlist.html')
 def watchlist():
-    if current_user == 'none':
+    if session['user'] == 'none':
         return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
     cur = mysql.connection.cursor()
-    user = current_user
     query_watchlist = '''select symbol, LTP, PC, round((LTP-PC), 2) AS CH, round(((LTP-PC)/PC)*100, 2) AS CH_percent from watchlist
 natural join company_price
 where username = %s
 order by (symbol);
 '''
-    cur.execute(query_watchlist, [user])
+    cur.execute(query_watchlist, [session['user']])
     watchlist = cur.fetchall()
 
-    return render_template('watchlist.html', user=user, watchlist=watchlist)
+    return render_template('watchlist.html', user=session['user'], watchlist=watchlist)
 
 
 @app.route('/holdings.html')
 def holdings():
-    if current_user == 'none':
+    if session['user'] == 'none':
         return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
     cur = mysql.connection.cursor()
-    user = current_user
     query_holdings = '''select A.symbol, A.quantity, B.LTP, round(A.quantity*B.LTP, 2) as current_value from holdings_view A
 inner join company_price B
 on A.symbol = B.symbol
 where username = %s
 '''
-    cur.execute(query_holdings, [user])
+    cur.execute(query_holdings, [session['user']])
     holdings = cur.fetchall()
 
-    return render_template('holdings.html', user=user, holdings=holdings)
+    return render_template('holdings.html', user=session['user'], holdings=holdings)
 
 @app.route('/news.html')
 def news(company='all'):

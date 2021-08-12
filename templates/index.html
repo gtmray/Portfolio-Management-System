@@ -26,7 +26,7 @@
 
                     
 
-                {% if user == 'none' %}
+                {% if "user" not in session %}
                 <div class="mx-2 my-2">
                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
                         type="submit">Login</button>
