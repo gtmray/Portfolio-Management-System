@@ -16,19 +16,34 @@
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
-    </style>
+
+    .container a {
+        color: rgb(255, 255, 255);
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .container a:hover {
+        color: rgb(141, 218, 248);
+        text-transform: uppercase;
+        text-decoration: none;    }
+
+    footer.container a {
+        color: rgb(224, 224, 224);
+    }
+
+    footer.container a:hover {
+        color: rgb(0, 255, 234);
+    }
+</style>
+
 <body>
-    <nav class="navbar navbar-expand-xl navbar-dark" style="background-color:rgb(18, 62, 105);">
+    <nav class="navbar" style="background-color:rgb(18, 62, 105);">
         <div class="container-fluid">
             <a class="navbar-brand fw-normal" href="#">Portfolio MS</a>
-          
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                    
-
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {% if "user" not in session %}
                 <div class="mx-2 my-2">
-                   <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
+                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#loginModal"
                         type="submit">Login</button>
 
                     <!--Login Modal -->
@@ -39,7 +54,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="loginModalLabel">Login</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                        aria-label="Close">X</button>
                                 </div>
                                 <div class="modal-body">
                                     <form method="POST" name="login">
@@ -51,7 +66,8 @@
                                         <div class="mb-3">
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                                                <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                                                <input type="password" class="form-control" name="password"
+                                                    id="exampleInputPassword1">
                                             </div>
                                         </div>
                                         <div class="mb-3 form-check">
@@ -67,8 +83,9 @@
                             </div>
                         </div>
                     </div>
+
                     <!--Signup Button -->
-                   <button class="btn btn-danger mx-4" data-bs-toggle="modal" data-bs-target="#signupModal"
+                    <button class="btn btn-danger mx-4" data-bs-toggle="modal" data-bs-target="#signupModal"
                         type="submit">Register</button>
 
                     <!--Signup Modal -->
@@ -78,21 +95,23 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    
                                 </div>
                                 <div class="modal-body">
                                     <form>
                                         <div class="mb-3">
+                                            <label for="exampleInputUsername" class="form-label">Username</label>
+                                            <input type="email" class="form-control" id="exampleInputUsername">                                            
+                                        </div>
+                                        <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Email address</label>
                                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp" name="new_email">
-                                            <div id="emailHelp" class="form-text">We'll never share your email with
-                                                anyone else.</div>
+                                                aria-describedby="emailHelp" name="new_email">                                            
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleInputPassword1" class="form-label">Password</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword1" name="new_password">
+                                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                                name="new_password">
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleInputPassword1" class="form-label">Confirm
@@ -118,64 +137,53 @@
                 {% else %}
                 <!--Logout Button -->
                 <form method="POST" action=''>
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutModal" type="submit" name="logout">Logout</button>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutModal" type="submit"
+                        name="logout">Logout</button>
                 </form>
                 {% endif %}
-            </div>
+        </div>
         </div>
     </nav>
 
-    <main class="container my-4">
-        <div class="container">
-        <div class="row row-cols-1 row-cols-lg-1 row-cols-sm-1 g-2 g-lg-4 justify-content-center">
-            <div class="col">
-                <hr />
-                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
-                    <a href="portfolio.html">My Portfolio</a></div>
+    <div class="container justify-content-center text-center my-3">
+        <div class="row g-6">
+            <div class="col-6">
+                <div class="p-4 border my-3" style="background-color:rgb(22, 90, 158); color:aliceblue;"><a
+                        href="portfolio.html">Portfolio</a></div>
             </div>
-            <hr /></div>
-            <div class="container">
-            <div class="col">
-                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
-                    <a href="holdings.html">Holdings</a></div>
+            <div class="col-6">
+                <div class="p-4 border my-3" style="background-color:rgb(22, 90, 158);"><a href="portfolio.html">Stock
+                        Price</a></div>
             </div>
-            <hr /></div>
-            <div class="container">
-            <div class="col">
-                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
-                    <a href="stockprice.html">Stock Price</a></div>
+            <br />
+            <div class="col-6">
+                <div class="p-4 border my-3" style="background-color:rgb(22, 90, 158);"><a
+                        href="portfolio.html">Fundamental Report</a></div>
             </div>
-            <hr /></div><div class="container">
-            <div class="col">
-                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
-                    <a href="companyprofile.html">Company Profile</a></div>
+            <div class="col-6">
+                <div class="p-4 border my-3" style="background-color:rgb(22, 90, 158);"><a
+                        href="portfolio.html">Technical Signal</a></div>
             </div>
-            <hr /></div><div class="container">
-            <div class="col">
-                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
-                    <a href="watchlist.html">My Watchlist</a></div>
+            <br />
+            <div class="col-6">
+                <div class="p-4 border my-3" style="background-color:rgb(22, 90, 158);"><a
+                        href="portfolio.html">News</a></div>
             </div>
-            <hr /></div><div class="container">
-            <div class="col">
-                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
-                    <a href="news.html">News</a></div>
+            <div class="col-6">
+                <div class="p-4 border my-3" style="background-color:rgb(22, 90, 158);"><a
+                        href="portfolio.html">Holdings</a></div>
             </div>
-            <hr /></div><div class="container">
-            <div class="col">
-                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
-                    <a href="fundamental.html">Fundamental Signals</a></div>
+            <br />
+            <div class="col-6">
+                <div class="p-4 border my-3" style="background-color:rgb(22, 90, 158);"><a href="portfolio.html">Your
+                        Watchlist</a></div>
             </div>
-            <hr /></div><div class="container">
-            <div class="col">
-                <div class="p-4 rounded-3 justify-content-center text-center" style="background-color:rgb(22, 96, 170)">
-                    <a href="technical.html">Technical Signals</a></div>
+            <div class="col-6">
+                <div class="p-4 border my-3" style="background-color:rgb(22, 90, 158);"><a
+                        href="portfolio.html">Dividend History</a></div>
             </div>
-            <hr /></div>
         </div>
-    </main>
-
-
-
+    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -190,26 +198,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
-
     <!-- FOOTER -->
     <footer class="container">
-        Quick Links
-        <hr />
-        <a href="/">Home</a><br>
-        <a href="portfolio.html">My Portfolio</a><br>
-        <a href="stockprice.html">Stock Price</a><br>
-        <a href="companyprofile.html">Company Profile</a><br>
-        <a href="fundamental.html">Fundamental Report</a><br>
-        <a href="technical.html">Technical Signals</a><br>
-        <a href="dividend.html">Dividend History</a><br>
-        <a href="news.html">Stock News</a><br>
-        <a href="holdings.html">Holdings</a><br>
-        <a href="watchlist.html">My Watchlist</a>
-        <hr />
-
-        <p>&copy; 2021 NEPSE Portfolio, Inc.</p>
+        <p>&copy; 2021 Portfolio MS</p>
         <p class="float-center"><a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-        <p class="float-center"><a href="#">Back to top</a></p>
+        
     </footer>
 </body>
 
