@@ -314,8 +314,8 @@ order by (symbol);
 
 @app.route('/holdings.html')
 def holdings():
-    if session['user'] == 'none':
-        return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
+    if "user" not in session:
+        return render_template('alert1.html')
     cur = mysql.connection.cursor()
     query_holdings = '''select A.symbol, A.quantity, B.LTP, round(A.quantity*B.LTP, 2) as current_value from holdings_view A
 inner join company_price B
