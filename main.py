@@ -45,7 +45,7 @@ def index():
             if user[0] == username and user[1] == password_hashed:
                 session['user'] = username
                 return portfolio()
-        return render_template('alert2.html', user=session['user'])
+        return render_template('alert2.html')
     else:
         return render_template('index.html', session=session)
 
@@ -298,8 +298,8 @@ order by(symbol);
 
 @app.route('/watchlist.html')
 def watchlist():
-    if session['user'] == 'none':
-        return '<h2>Please login first!</h2> <br><a href="/">Go Back</a>'
+    if 'user' not in session:
+        return render_template('alert1.html')
     cur = mysql.connection.cursor()
     query_watchlist = '''select symbol, LTP, PC, round((LTP-PC), 2) AS CH, round(((LTP-PC)/PC)*100, 2) AS CH_percent from watchlist
 natural join company_price

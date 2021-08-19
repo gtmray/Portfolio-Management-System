@@ -1,6 +1,7 @@
 create database portfolio;
 use portfolio;
 
+-- For debugging
 drop table company_profile;
 drop table company_price;
 drop table fundamental_report;
@@ -376,81 +377,6 @@ where username = 'rewan'
 group by C.sector;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--- -----------------------------------------------------------------------------------------------------
-
--- TESTING TESTING
-
-CREATE TABLE TESTING(
-SID INT auto_increment,
-QUANTITY INT,
-RATE FLOAT,
-primary key(SID));
-
-INSERT INTO TESTING(QUANTITY, RATE) VALUES
-(12, 122.4),
-(120, 555.3);
-
-select quantity as q, rate as r, (quantity*rate) as total from testing;
-drop table testing;
-
-
--- drop trigger total_calc;
--- DELIMITER $$
---     CREATE TRIGGER total_calc BEFORE INSERT ON transaction_history
---     FOR EACH ROW BEGIN
---       IF (buy_sell = 'buy') then
---             update transaction_history 
--- 			set total = rate*quantity + (0.34/100)*rate*quantity+25+(0.015/100)*rate*quantity;
---       ELSE
---             update transaction_history 
--- 			set total = rate*quantity + (0.37/100)*rate*quantity+25+(0.015/100)*rate*quantity;
---       END IF;
--- END$$
-
-
-DELIMITER $$
-
-CREATE PROCEDURE GetTotal(
-	IN ptransaction_id int,
-	OUT total_converted float
-)
-BEGIN
-
-SELECT total FROM transaction_total
-WHERE transaction_id = ptransaction_id;
-
-    CASE total
-		WHEN  total<60000 THEN
-		   SET total_converted = total + 555;
-		WHEN total<70000 THEN
-		   SET total_converted = total  + 777;
-		ELSE
-		   SET total_converted = total + 888;
-	END CASE;
-END$$
-DELIMITER ;
-
-Call getTotal(1, @output);
-
-drop procedure getTotal;
-
-
 -- Profit loss in portfolio
 
 -- Function to find total amount (amount + broker commission + sebon fee + DP charge) excluding capital gain tax
@@ -535,8 +461,7 @@ natural join company_price
 where username='rewan'
 group by symbol;
 
-
-
+-- Stored procedure for portfolio (holdings with profit/loss)
 DELIMITER $$
 CREATE PROCEDURE portfolio(in username varchar(30))
 BEGIN
