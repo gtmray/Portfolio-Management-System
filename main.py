@@ -80,7 +80,7 @@ natural join company_profile
 where 
 EPS>25 and roe>13 and 
 book_value > 100 and
-50<rsi<70 and adx >23 and
+rsi>50 and adx >23 and
 pe_ratio < 35 and
 macd = 'bull'
 order by symbol;

@@ -448,8 +448,7 @@ drop function capGain;
 
 
 -- Profit loss summary
-select symbol, sum(quantity) as quantity, LTP, rate
-,round((getTotal(-sum(quantity)*LTP)), 2) as soldAt, round(getTotal(sum(quantity)*rate), 2) as buyAt,
+select symbol, sum(quantity) as quantity, LTP, rate,
 capGain(round((getTotal(-sum(quantity)*LTP)) - (getTotal(sum(quantity)*rate)), 2), transaction_date) as profit_loss
 from transaction_history T
 natural join company_price C
